@@ -21,12 +21,21 @@ dependencies {
 	{
 		exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
 	}
+
+	//undertow
 	implementation("org.springframework.boot:spring-boot-starter-undertow")
+
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	//jpa
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.2")
+	//postgresql
+	implementation("org.postgresql:postgresql:42.4.1")
+
 }
 
 
