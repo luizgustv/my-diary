@@ -1,8 +1,7 @@
-package br.com.katet.mydiary.note
+package br.com.katet.mydiary.adapter.database
 
+import br.com.katet.mydiary.adapter.controller.response.ClientDiaryInfoResponse
 import org.hibernate.annotations.GenericGenerator
-import org.hibernate.id.UUIDGenerator
-import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.UUID
@@ -22,7 +21,7 @@ class ClientDiaryInfo(
     @Column(nullable = false)
     private val time: LocalTime = LocalTime.now(),
     @Column(nullable = false)
-    private val notes: String = ""
+    var notes: String = ""
     ){
 
     fun toResponse(): ClientDiaryInfoResponse =

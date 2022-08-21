@@ -1,4 +1,4 @@
-package br.com.katet.mydiary.note
+package br.com.katet.mydiary.adapter.controller.response
 
 import java.time.LocalDate
 import java.time.LocalTime

@@ -1,4 +1,4 @@
-package br.com.katet.mydiary.note
+package br.com.katet.mydiary.adapter.controller.request
 
 class NoteRequest(
     val userId: Int,

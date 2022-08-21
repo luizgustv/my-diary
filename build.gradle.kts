@@ -22,8 +22,12 @@ dependencies {
 		exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
 	}
 
-	//undertow
+	//undertow - it's like a tomcat
 	implementation("org.springframework.boot:spring-boot-starter-undertow")
+
+	//coroutines
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+	runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
