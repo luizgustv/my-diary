@@ -9,6 +9,11 @@ class DeleteNoteService(private val repository: DiaryRepository) {
 
     fun execute(userId: Int, date: LocalDate): String{
         repository.deleteByUserIdAndDate(userId = userId, date = date)
-        return "Deletado!"
+        return "Deleted!"
+    }
+
+    fun execute(): String{
+        repository.deleteAll()
+        return "All notes was deleted"
     }
 }

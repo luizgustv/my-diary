@@ -27,7 +27,7 @@ class DiaryController(
     @PostMapping
     suspend fun createNote(@RequestBody noteRequest: NoteRequest): String {
         return postNoteService.execute(noteRequest).also {
-            println("Note saved! Thread = ${Thread.currentThread()}")
+            println("Note saved! Thread = ${Thread.currentThread().name}")
         }
     }
 
@@ -60,6 +60,11 @@ class DiaryController(
         date: LocalDate
     ): String {
         return deleteNoteService.execute(userId, date)
+    }
+
+    @DeleteMapping("/delete")
+    fun deleteAllNotes(): String{
+        return deleteNoteService.execute()
     }
 }
 
