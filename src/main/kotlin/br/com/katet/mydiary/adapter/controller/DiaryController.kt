@@ -32,7 +32,7 @@ class DiaryController(
     }
 
     @GetMapping("/users/{userId}/dates/{date}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getNote(
+    suspend fun getNote(
         @PathVariable userId: Int,
         @PathVariable
         @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate
@@ -41,7 +41,7 @@ class DiaryController(
     }
 
     @PatchMapping("/users/{userId}/dates/{date}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun updateNote(
+    suspend fun updateNote(
         @PathVariable userId: Int,
         @PathVariable
         @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate,
@@ -53,7 +53,7 @@ class DiaryController(
     //@RequestParam vs @PathVariable
     @Transactional
     @DeleteMapping("/users/{userId}/dates/{date}")
-    fun deleteNote(
+    suspend fun deleteNote(
         @PathVariable userId: Int,
         @PathVariable
         @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -63,7 +63,7 @@ class DiaryController(
     }
 
     @DeleteMapping("/delete")
-    fun deleteAllNotes(): String{
+    suspend fun deleteAllNotes(): String{
         return deleteNoteService.execute()
     }
 }
