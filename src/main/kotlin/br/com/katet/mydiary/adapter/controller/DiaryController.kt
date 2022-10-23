@@ -2,18 +2,18 @@ package br.com.katet.mydiary.adapter.controller
 
 import br.com.katet.mydiary.adapter.controller.request.NoteRequest
 import br.com.katet.mydiary.adapter.controller.response.ClientDiaryInfoResponse
-import br.com.katet.mydiary.adapter.database.ClientDiaryInfo
-import br.com.katet.mydiary.adapter.database.DiaryRepository
 import br.com.katet.mydiary.application.service.DeleteNoteService
 import br.com.katet.mydiary.application.service.GetNoteService
 import br.com.katet.mydiary.application.service.PostNoteService
 import br.com.katet.mydiary.application.service.UpdateNoteService
-import kotlinx.coroutines.CoroutineName
+import org.apache.log4j.Logger
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.MediaType
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
+
+private val log: Logger = Logger.getLogger("DiaryController")
 
 @RestController
 @RequestMapping("/v1/my-diary/notes")
@@ -26,8 +26,10 @@ class DiaryController(
 
     @PostMapping
     suspend fun createNote(@RequestBody noteRequest: NoteRequest): String {
+        log.info("Creating note")
+
         return postNoteService.execute(noteRequest).also {
-            println("Note saved! Thread = ${Thread.currentThread().name}")
+            log.info("Note created")
         }
     }
 
@@ -37,7 +39,11 @@ class DiaryController(
         @PathVariable
         @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate
     ): ClientDiaryInfoResponse? {
-        return getNoteService.execute(userId, date)?.toResponse()
+        log.info("Getting note")
+
+        return getNoteService.execute(userId, date)?.toResponse().also {
+            log.info("Finish search of a note")
+        }
     }
 
     @PatchMapping("/users/{userId}/dates/{date}", produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -47,7 +53,11 @@ class DiaryController(
         @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate,
         @RequestBody noteRequest: NoteRequest
     ): String {
-        return updateNoteService.execute(userId, date, noteRequest)
+        log.info("Updating note")
+
+        return updateNoteService.execute(userId, date, noteRequest).also {
+            log.info("Note updated")
+        }
     }
 
     //@RequestParam vs @PathVariable
@@ -59,7 +69,11 @@ class DiaryController(
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         date: LocalDate
     ): String {
-        return deleteNoteService.execute(userId, date)
+        log.info("Delete note")
+
+        return deleteNoteService.execute(userId, date).also {
+            log.info("Note deleted")
+        }
     }
 
     @DeleteMapping("/delete")
@@ -73,4 +87,12 @@ If a note was created, but already there was it with the same userId and date, t
 (the rule by time will be not considerate for now)
 
 https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
+ */
+
+/*
+grafana
+- understand
+- create dash
+- use grafana + loki
+- create scenarios in wiremock in order to see this in a error dashboard
  */

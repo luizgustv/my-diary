@@ -42,7 +42,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
 
-    //spring cloud starter sleuth - auto-configuration for distributed tracing
+    //spring cloud starter sleuth - autoconfiguration for distributed tracing
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
     {
         exclude(group = "org.springframework.cloud", module = "spring-cloud-sleuth-brave")
@@ -74,9 +74,12 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     //jpa
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.4")
     //postgresql
-    implementation("org.postgresql:postgresql:42.4.1")
+    implementation("org.postgresql:postgresql:42.5.0")
+
+    //logging
+    implementation("log4j:log4j:1.2.16")
 
 }
 
