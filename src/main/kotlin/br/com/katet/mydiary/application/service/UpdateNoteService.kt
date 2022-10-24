@@ -4,11 +4,11 @@ import br.com.katet.mydiary.adapter.controller.request.NoteRequest
 import br.com.katet.mydiary.adapter.database.DiaryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.apache.log4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 
-private val log: Logger = Logger.getLogger("UpdateNoteService")
+private val log = LoggerFactory.getLogger(UpdateNoteService::class.java)
 
 @Service
 class UpdateNoteService(private val repository: DiaryRepository) {

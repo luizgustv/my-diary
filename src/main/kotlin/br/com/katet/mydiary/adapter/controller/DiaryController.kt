@@ -6,14 +6,14 @@ import br.com.katet.mydiary.application.service.DeleteNoteService
 import br.com.katet.mydiary.application.service.GetNoteService
 import br.com.katet.mydiary.application.service.PostNoteService
 import br.com.katet.mydiary.application.service.UpdateNoteService
-import org.apache.log4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.MediaType
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 
-private val log: Logger = Logger.getLogger("DiaryController")
+private val log = LoggerFactory.getLogger(DiaryController::class.java)
 
 @RestController
 @RequestMapping("/v1/my-diary/notes")
@@ -78,7 +78,9 @@ class DiaryController(
 
     @DeleteMapping("/delete")
     suspend fun deleteAllNotes(): String{
-        return deleteNoteService.execute()
+        return deleteNoteService.execute().also {
+            log.info(it)
+        }
     }
 }
 

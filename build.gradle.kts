@@ -7,25 +7,12 @@ plugins {
     kotlin("plugin.spring") version "1.6.21"
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.3")
-        mavenBom("org.springframework.cloud:spring-cloud-sleuth-otel-dependencies:1.1.0-M6")
-    }
-}
-
 group = "br.com.katet"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://repo.spring.io/snapshot")
-    }
-    maven {
-        url = uri("https://repo.spring.io/milestone")
-    }
 }
 
 
@@ -38,22 +25,26 @@ dependencies {
     //undertow - it's like a tomcat
     implementation("org.springframework.boot:spring-boot-starter-undertow")
 
+    //actuator - enables endpoints that shows more information
+    //for more : https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/#overview
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     //coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
 
-    //spring cloud starter sleuth - autoconfiguration for distributed tracing
-    implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
-    {
-        exclude(group = "org.springframework.cloud", module = "spring-cloud-sleuth-brave")
-    }
-    //for autoconfigure metrics
-    implementation("org.springframework.cloud:spring-cloud-sleuth-otel-autoconfigure")
-
-    //for export metric to somewhere
-    implementation("io.opentelemetry:opentelemetry-exporter-otlp-trace")
-    //context extension for coroutines
-    runtimeOnly("io.opentelemetry:opentelemetry-extension-kotlin")
+//    //spring cloud starter sleuth - autoconfiguration for distributed tracing
+//    implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
+//    {
+//        exclude(group = "org.springframework.cloud", module = "spring-cloud-sleuth-brave")
+//    }
+//    //for autoconfigure metrics
+//    implementation("org.springframework.cloud:spring-cloud-sleuth-otel-autoconfigure")
+//
+//    //for export metric to somewhere
+//    implementation("io.opentelemetry:opentelemetry-exporter-otlp-trace")
+//    //context extension for coroutines
+//    runtimeOnly("io.opentelemetry:opentelemetry-extension-kotlin")
 
     /*
     https://github.com/spring-projects-experimental/spring-cloud-sleuth-otel
@@ -77,10 +68,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.4")
     //postgresql
     implementation("org.postgresql:postgresql:42.5.0")
-
-    //logging
-    implementation("log4j:log4j:1.2.16")
-
 }
 
 
