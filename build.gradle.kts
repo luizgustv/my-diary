@@ -29,34 +29,12 @@ dependencies {
     //for more : https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/#overview
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
+    //prometheus
+    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+
     //coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
-
-//    //spring cloud starter sleuth - autoconfiguration for distributed tracing
-//    implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
-//    {
-//        exclude(group = "org.springframework.cloud", module = "spring-cloud-sleuth-brave")
-//    }
-//    //for autoconfigure metrics
-//    implementation("org.springframework.cloud:spring-cloud-sleuth-otel-autoconfigure")
-//
-//    //for export metric to somewhere
-//    implementation("io.opentelemetry:opentelemetry-exporter-otlp-trace")
-//    //context extension for coroutines
-//    runtimeOnly("io.opentelemetry:opentelemetry-extension-kotlin")
-
-    /*
-    https://github.com/spring-projects-experimental/spring-cloud-sleuth-otel
-
-    https://towardsdev.com/opentelemetry-spring-boot-kafka-and-jaeger-in-action-8ef1912c8044
-
-    https://betterprogramming.pub/distributed-tracing-with-opentelemetry-spring-cloud-sleuth-kafka-and-jaeger-939e35f45821
-
-    https://github.com/spring-projects-experimental/spring-cloud-sleuth-otel
-
-    https://github.com/spring-cloud/spring-cloud-sleuth/issues/1908
-     */
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

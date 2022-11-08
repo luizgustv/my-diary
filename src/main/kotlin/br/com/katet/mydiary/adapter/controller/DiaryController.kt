@@ -85,6 +85,14 @@ class DiaryController(
 }
 
 /*
+https://github.com/grafana/tutorial-environment/blob/master/docker-compose.yml
+
+https://grafana.com/tutorials/grafana-fundamentals/
+
+https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/#metrics
+ */
+
+/*
 If a note was created, but already there was it with the same userId and date, the previous note should be updated by the more recent
 (the rule by time will be not considerate for now)
 
@@ -97,4 +105,9 @@ grafana
 - create dash
 - use grafana + loki
 - create scenarios in wiremock in order to see this in a error dashboard
+
+ - create custom metric
+
+ https://www.tigera.io/learn/guides/prometheus-monitoring/prometheus-metrics/
+
  */
