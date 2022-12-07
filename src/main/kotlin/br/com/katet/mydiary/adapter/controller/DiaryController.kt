@@ -2,10 +2,7 @@ package br.com.katet.mydiary.adapter.controller
 
 import br.com.katet.mydiary.adapter.controller.request.NoteRequest
 import br.com.katet.mydiary.adapter.controller.response.ClientDiaryInfoResponse
-import br.com.katet.mydiary.application.service.DeleteNoteService
-import br.com.katet.mydiary.application.service.GetNoteService
-import br.com.katet.mydiary.application.service.PostNoteService
-import br.com.katet.mydiary.application.service.UpdateNoteService
+import br.com.katet.mydiary.application.service.*
 import org.slf4j.LoggerFactory
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.MediaType
@@ -19,6 +16,7 @@ private val log = LoggerFactory.getLogger(DiaryController::class.java)
 @RequestMapping("/v1/my-diary/notes")
 class DiaryController(
     private val postNoteService: PostNoteService,
+    private val getAllUsersService: GetAllUsersService,
     private val getNoteService: GetNoteService,
     private val updateNoteService: UpdateNoteService,
     private val deleteNoteService: DeleteNoteService
@@ -30,6 +28,15 @@ class DiaryController(
 
         return postNoteService.execute(noteRequest).also {
             log.info("Note created")
+        }
+    }
+
+    @GetMapping("/users", produces = [MediaType.APPLICATION_JSON_VALUE])
+    suspend fun getAllUsers(): List<Int>{
+        log.info("Getting user's id")
+
+        return getAllUsersService.execute().also {
+            log.info("Finish search of all users")
         }
     }
 
@@ -105,9 +112,12 @@ grafana
 - create dash
 - use grafana + loki
 - create scenarios in wiremock in order to see this in a error dashboard
-
- - create custom metric
+- create custom metric
 
  https://www.tigera.io/learn/guides/prometheus-monitoring/prometheus-metrics/
+
+custom metric
+metric for each endpoint - count
+prometheus and jobs
 
  */

@@ -10,15 +10,14 @@ services :
       POSTGRES_PASSWORD: root
       POSTGRES_DB: mydb
     networks:
-      - db-network
+      - "db-network"
 
   database-admin:
     image: adminer
-    restart: always
     ports:
       - "8080:8080"
     networks:
-      - db-network
+      - "db-network"
 
   ## in grafana > data-source set url to http://host.docker.internal:9090
   prometheus:
@@ -64,7 +63,6 @@ services :
 
 networks:
   db-network:
-    driver: bridge
   monitoring-network:
     driver: bridge
 

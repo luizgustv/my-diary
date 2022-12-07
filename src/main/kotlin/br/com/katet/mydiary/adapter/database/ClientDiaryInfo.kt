@@ -15,7 +15,7 @@ class ClientDiaryInfo(
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private val id: String = UUID.randomUUID().toString(),
     @Column(nullable = false)
-    private val userId: Int = 0,
+    val userId: Int = 0,
     @Column(nullable = false)
     private val date: LocalDate = LocalDate.now(),
     @Column(nullable = false)
