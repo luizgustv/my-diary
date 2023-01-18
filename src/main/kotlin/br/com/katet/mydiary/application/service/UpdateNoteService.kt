@@ -6,26 +6,34 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 private val log = LoggerFactory.getLogger(UpdateNoteService::class.java)
 
 @Service
 class UpdateNoteService(private val repository: DiaryRepository) {
 
-    suspend fun execute(userId: Int, date: LocalDate, noteRequest: NoteRequest): String {
+    suspend fun execute(userId: Int, noteRequest: NoteRequest): String {
 
-        log.info("Starting to get note in database... ")
+        log.info("Starting to update note in database... ")
 
-        withContext(Dispatchers.IO) {
-            log.info("Searching if note already exists in database... ")
-            repository.findByUserIdAndDate(userId = userId, date = date)
-        }
-            ?.apply { this.notes = noteRequest.notes }?.also { clientDiaryInfo ->
+        try {
+            val noteInfo = withContext(Dispatchers.IO) {
+                log.info("Searching if note already exists in database... ")
+                repository.findByUserIdAndId(userId = userId, id = noteRequest.id)
+            } ?: return "Note not found"
+
+            noteInfo.apply {
+                this.note = noteRequest.note
+                this.timestamp = LocalDateTime.now()
+            }.also { note ->
                 withContext(Dispatchers.IO) {
-                    repository.save(clientDiaryInfo)
+                    repository.save(note)
                 }
             }
+        }catch (ex: Exception){
+            return "Error"
+        }
 
         return "Note updated!"
     }

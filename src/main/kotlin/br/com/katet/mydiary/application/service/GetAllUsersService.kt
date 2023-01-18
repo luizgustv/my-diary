@@ -12,11 +12,11 @@ private val log = LoggerFactory.getLogger(GetAllUsersService::class.java)
 class GetAllUsersService(private val repository: DiaryRepository) {
 
     suspend fun execute(): List<Int>{
-        log.info("Starting to get users in database... ")
+        log.info("Starting to get users in database...")
 
         return withContext(Dispatchers.IO){
-            repository.findAll().map {
-                it.userId
+            repository.findAll().map { note ->
+                note.userId
             }
         }
     }

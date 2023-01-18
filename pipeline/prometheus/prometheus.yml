@@ -14,6 +14,6 @@ scrape_configs:
     scrape_interval: 5s
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['host.docker.internal:80','localhost:80'] #servidor aplicação
+      - targets: ['host.docker.internal:80','localhost:80'] # aplication server
         labels:
           application: "my-diary"
