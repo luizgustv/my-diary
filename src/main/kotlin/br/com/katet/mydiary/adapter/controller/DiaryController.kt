@@ -26,6 +26,8 @@ class DiaryController(
     private val deleteNoteService: DeleteNoteService
 ) {
 
+    private var count = 0
+
     @GetMapping("/users", produces = [MediaType.APPLICATION_JSON_VALUE])
     suspend fun getAllUsers(): ResponseEntity<List<Int>> {
         log.info("Getting user's id")
@@ -37,6 +39,10 @@ class DiaryController(
 
         return ResponseEntity.ok(response).also {
             log.info("Finish search of all users")
+
+            count += 1
+
+            log.info("noteCreated: $count")
         }
     }
 
@@ -87,7 +93,8 @@ class DiaryController(
         }
     }
 
-    @PatchMapping("/notes", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @PatchMapping("/notes",
+        consumes = [MediaType.APPLICATION_JSON_VALUE])
     suspend fun updateNote(
         @RequestHeader userId: Int,
         @RequestBody noteRequest: NoteRequest
@@ -123,34 +130,3 @@ class DiaryController(
         }
     }
 }
-
-/*
-https://github.com/grafana/tutorial-environment/blob/master/docker-compose.yml
-
-https://grafana.com/tutorials/grafana-fundamentals/
-
-https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/#metrics
- */
-
-/*
-If a note was created, but already there was it with the same userId and date, the previous note should be updated by the more recent
-(the rule by time will be not considerate for now)
-
-https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
- */
-
-/*
-grafana
-- understand
-- create dash
-- use grafana + loki
-- create scenarios in wiremock in order to see this in a error dashboard
-- create custom metric
-
- https://www.tigera.io/learn/guides/prometheus-monitoring/prometheus-metrics/
-
-custom metric
-metric for each endpoint - count
-prometheus and jobs
-
- */

@@ -42,8 +42,12 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+    //logback
+    implementation("net.logstash.logback:logstash-logback-encoder:5.2")
+
     //jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.4")
+
     //postgresql
     implementation("org.postgresql:postgresql:42.5.0")
 }

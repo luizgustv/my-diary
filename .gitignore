@@ -38,3 +38,5 @@ out/
 
 ### Grafana ###
 /pipeline/data/grafana/data/grafana.db
+
+logs/
