@@ -44,22 +44,20 @@ services :
 #      - loki
 
   ## in grafana > data-source set url to http://host.docker.internal:3100
-#  loki:
-#    image: grafana/loki:2.1.0
-#    command: -config.file=/etc/loki/local-config.yaml
-#    ports:
-#      - "3100:3100"
-#    networks:
-#      - monitoring-network
-#
-#  promtail:
-#    image: grafana/promtail:2.0.0
-#    volumes:
-#      - ./promtail/promtail-config.yaml:/etc/promtail/docker-config.yaml
-#      - ./logs/monitoring.log:/var/log/monitoring.log
-#    command: "--config.file=/etc/promtail/docker-config.yaml"
-#    networks:
-#      - monitoring-network
+  promtail:
+    image: grafana/promtail
+    container_name: promtail
+    volumes:
+      - ./promtail/promtail-config.yaml:/etc/promtail/docker-config.yaml
+      - ../logs/monitoring.log:/var/log/monitoring.log
+    command: "--config.file=/etc/promtail/docker-config.yaml"
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
 
 networks:
   db-network:
